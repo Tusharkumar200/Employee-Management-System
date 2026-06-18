@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import { dummyEmployeeData, DEPARTMENTS } from "../assets/assets"
 import { Plus, Search, X } from "lucide-react"
 import EmployeeCard from "../components/EmployeeCard"
+import EmployeeForm from "../components/EmployeeForm"
 
 const Employees = () => {
   const [employees, setEmployees] = useState([])
@@ -17,11 +18,11 @@ const Employees = () => {
     setTimeout(() => {
       setLoading(false)
     }, 1000)
-  }, [])
+  }, [selectedDept])
 
   useEffect(() => {
     fetchEmployees();
-  }, [])
+  }, [fetchEmployees])
 
   const filtered = employees.filter((emp) => `${emp.firstName} ${emp.lastName} ${emp.position}`.toLowerCase().includes(search.toLowerCase()))
 
@@ -77,7 +78,12 @@ const Employees = () => {
                 <X className="w-5 h-5"/>
               </button>
             </div>
-            <div className="p-6">form</div>
+            <div className="p-6">
+              <EmployeeForm onSuccess={()=>{
+                  setShowCreateModal(false);
+                  fetchEmployees()
+                }} onCancel={()=>setShowCreateModal(false)} />
+            </div>
           </div>
         </div>
       )}
@@ -95,8 +101,11 @@ const Employees = () => {
                 <X className="w-5 h-5"/>
               </button>
             </div>
-            <div>
-              
+            <div className="p-6">
+                <EmployeeForm initialData={editEmployee} onSuccess={()=>{
+                  setEditEmployees(null);
+                  fetchEmployees()
+                }} onCancel={()=>setEditEmployees(null)} />
             </div>
           </div>
         </div>
