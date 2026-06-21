@@ -1,7 +1,5 @@
-// npm i express cors dotenv multer jsonwebtoken bcrypt mongoose
-// npm i --save-dev nodemon
-
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 import multer from "multer";
 import "dotenv/config";
@@ -15,7 +13,7 @@ import payslipRouter from "./routes/payslipsRoutes.js";
 import dashboardRouter from "./routes/dashboardController.js";
 
 const app = express()
-const PORT = Process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 
 // Middleware

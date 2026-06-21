@@ -1,9 +1,9 @@
 
-// create leaves
 
 import Employee from "../models/Employee.js";
 import LeaveApplication from "../models/LeaveApplication.js";
 
+// create leaves
 // POST /api/leaves
 export const createLeave = async (req, res) => {
     try {
