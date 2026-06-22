@@ -141,9 +141,8 @@ const attendanceReminderCron = inngest.createFunction(
         //  Step 6: send reminder email
         if (absentEmployees.length > 0) {
             await step.run("send-reminder-email", async () => {
-                const emailPromises = absentEmployees.map((emp) => {
-                    // send email
-                    await sendEmail({
+                const emailPromises = absentEmployees.map(async (emp) => {
+                    return sendEmail({
                         to: emp.email,
                         subject: `Application Reminder - Please Mark your Attendance`,
                         body: `<div style="max-width: 600px; font-family: Arial, sans-serif;">
@@ -160,6 +159,7 @@ const attendanceReminderCron = inngest.createFunction(
                 `
                     })
                 })
+                await Promise.all(emailPromises);
             })
         }
 
