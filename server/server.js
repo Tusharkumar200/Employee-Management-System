@@ -1,7 +1,5 @@
-// npm i express cors dotenv multer jsonwebtoken bcrypt mongoose
-// npm i --save-dev nodemon
-
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 import multer from "multer";
 import "dotenv/config";
@@ -14,8 +12,11 @@ import leaveRouter from "./routes/leaveRoutes.js";
 import payslipRouter from "./routes/payslipsRoutes.js";
 import dashboardRouter from "./routes/dashboardController.js";
 
+import { serve } from "inngest/express";
+import { inngest, functions } from "./inngest/index.js"
+
 const app = express()
-const PORT = Process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 
 // Middleware
@@ -34,6 +35,8 @@ app.use("/api/attendance", attendanceRouter)
 app.use("/api/leave", leaveRouter)
 app.use("/api/payslips", payslipRouter)
 app.use("/api/dashboard", dashboardRouter)
+
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 await connectDB()
 app.listen(PORT, ()=>{

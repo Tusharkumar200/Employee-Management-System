@@ -1,9 +1,8 @@
-
-// create leaves
-
+import { inngest } from "../inngest/index.js";
 import Employee from "../models/Employee.js";
 import LeaveApplication from "../models/LeaveApplication.js";
 
+// create leaves
 // POST /api/leaves
 export const createLeave = async (req, res) => {
     try {
@@ -37,6 +36,12 @@ export const createLeave = async (req, res) => {
             status: "PENDING",
 
         })
+
+        await inngest.send({
+            name: "leave/pending",
+            data:{leaveApplicationId: leave._id}
+        })
+        
         return res.json({ success: true, data: leave });
 
     } catch (error) {
