@@ -809,7 +809,8 @@ npm run dev
 ### 🔐 Login Page
 
 ```html
-<img src="./assets/screenshots/login-page.png" alt="Login Page" width="100%"/>
+<img width="100%" alt="login_page" src="https://github.com/user-attachments/assets/3a8e366f-5452-4987-8fff-83632094206a" />
+
 ```
 
 *Secure authentication interface for both admins and employees*
