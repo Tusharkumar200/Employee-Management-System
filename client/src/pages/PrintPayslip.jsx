@@ -10,10 +10,8 @@ const PrintPayslip = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setPayslip(dummyPayslipData.find((slip) => slip._id === id))
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
+   api.get(`/payslips/${id}`).then((res)=> setPayslip(res.data)).catch(console.error).finally(()=> setLoading(false));
+   
   }, [id])
 
   if (loading) return <Loading />

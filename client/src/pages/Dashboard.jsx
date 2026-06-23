@@ -9,11 +9,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // setData(dummyEmployeeDashboardData)
-    setData(dummyAdminDashboardData)
-    setTimeout(()=>{
-      setLoading(false)
-    },1000)
+   api.get('/dashboard').then((res)=> setData(res.data)).catch((err)=> toast.error(err.response?.data?.error || err?.message)).finally(()=> setLoading(false))
+   
   },[])
 
   if(loading) return <Loading/>
