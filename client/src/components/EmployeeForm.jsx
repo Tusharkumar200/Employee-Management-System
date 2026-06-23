@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { DEPARTMENTS } from '../assets/assets'
 import { Loader2Icon } from 'lucide-react'
+import { toast } from "react-hot-toast"
+import api from '../../api/axios'
+
 const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
 
     const navigate = useNavigate()
@@ -83,8 +86,8 @@ const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
                         <input type='number' name='allowances' required min='0' step='0.01' defaultValue={initialData?.allowances || 0} />
                     </div>
                     <div>
-                        <label className="block mb-2">Dedutions</label>
-                        <input type='number' name='dedutions' required min='0' step='0.01' defaultValue={initialData?.dedutions || 0} />
+                        <label className="block mb-2">Deductions</label>
+                        <input type='number' name='deductions' required min='0' step='0.01' defaultValue={initialData?.deductions || 0} />
                     </div>
                     {
                         isEditMode && (

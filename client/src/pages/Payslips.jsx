@@ -5,6 +5,7 @@ import PayslipList from '../components/payslip/PayslipList'
 import GeneratePayslipForm from '../components/payslip/GeneratePayslipForm'
 import { toast } from "react-hot-toast"
 import { useAuth } from '../../context/AuthContext'
+import api from '../../api/axios'
 
 const Payslips = () => {
   const [payslips, setPayslips] = useState([])

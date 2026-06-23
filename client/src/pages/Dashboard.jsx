@@ -3,6 +3,7 @@ import { dummyAdminDashboardData, dummyEmployeeDashboardData } from '../assets/a
 import Loading from '../components/Loading'
 import EmployeeDashboard from '../components/EmployeeDashboard'
 import AdminDashboard from '../components/AdminDashboard'
+import api from '../../api/axios'
 
 const Dashboard = () => {
   const [data, setData] = useState(null)

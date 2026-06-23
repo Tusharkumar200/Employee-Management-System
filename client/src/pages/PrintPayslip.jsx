@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import { dummyPayslipData } from '../assets/assets'
 import Loading from '../components/Loading';
 import { format } from 'date-fns';
+import { toast } from "react-hot-toast"
+import api from '../../api/axios'
 
 const PrintPayslip = () => {
   const { id } = useParams();

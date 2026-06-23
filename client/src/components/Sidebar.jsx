@@ -3,6 +3,7 @@ import { href, Link, useLocation } from 'react-router-dom'
 import { dummyProfileData } from '../assets/assets'
 import { Calendar1Icon, ChevronRightIcon, DollarSignIcon, FileTextIcon, LayoutGridIcon, Loader2, LogOutIcon, MenuIcon, SettingsIcon, UserIcon, XIcon } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
+import api from '../../api/axios'
 
 const Sidebar = () => {
     const { pathname } = useLocation()

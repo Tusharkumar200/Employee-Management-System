@@ -27,7 +27,7 @@ export const getEmployees = async (req, res)=>{
 // POST /api/employees
 export const createEmployees = async (req, res)=>{
     try{
-        const {firstName, lastName, email, phone, position, department, basicSalary, allowances, deductions, joindate, password, role, bio} = req.body;
+        const {firstName, lastName, email, phone, position, department, basicSalary, allowances, deductions, joinDate, password, role, bio} = req.body;
 
         if(!email || !password || !firstName || !lastName){
             return res.status(400).json({error: "Missing required fields"})
@@ -50,7 +50,7 @@ export const createEmployees = async (req, res)=>{
             basicSalary: Number(basicSalary) || 0,
             allowances: Number(allowances) || 0,
             deductions: Number(deductions) || 0,
-            joinDate: new Date(joinDate),
+            joinDate: joinDate ? new Date(joinDate) : undefined,
             bio: bio || "",
         })
         return res.status(201).json({success: true, employee})
