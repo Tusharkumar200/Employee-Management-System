@@ -1,5 +1,6 @@
 import { Loader2Icon, LockIcon, X } from 'lucide-react'
 import React, { useState } from 'react'
+import api from '../../api/axios'
 
 const ChangePasswordModal = ({ open, onClose }) => {
     const [loading, setLoading] = useState(false)
@@ -7,6 +8,22 @@ const ChangePasswordModal = ({ open, onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
+        setMessage({ type: "", text: "" });
+        const formData = new FormData(e.currentTarget)
+        const currentPassword = formData.get("newPassword");
+        try {
+            const { data } = await api.post("/auth/change-password", { currentPassword, newPassword });
+            if (!data.success) throw new Error(data.error || "Failed");
+            setMessage({ type: "success", text: "Password updated successfully" })
+            e.target.reset();
+
+        } catch (err) {
+            setMessage({ type: "error", text: err.message })
+        }
+        finally {
+            setLoading(false)
+        }
     }
     if (!open) return null;
     return (
@@ -37,7 +54,7 @@ const ChangePasswordModal = ({ open, onClose }) => {
                     <div className='flex gap-3 pt-2'>
                         <button type='button' onClick={onClose} className='btn-secondary flex-1'>Cancel</button>
                         <button type='submit' disabled={loading} className='btn-primary flex-1 flex justify-center items-center gap-2'>
-                            {loading && <Loader2Icon className='w-4 h-4 animate-spin'/>}
+                            {loading && <Loader2Icon className='w-4 h-4 animate-spin' />}
                             Update Password
                         </button>
                     </div>

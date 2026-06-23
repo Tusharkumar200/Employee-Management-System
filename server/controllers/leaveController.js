@@ -16,33 +16,43 @@ export const createLeave = async (req, res) => {
         }
         const { type, startDate, endDate, reason } = req.body;
         if (!type || !startDate || !endDate || !reason) {
-            return res.status(404).json({ error: "Missing fields" });
+            return res.status(400).json({ error: "Missing fields" });
         }
         const today = new Date();
         today.setHours(0, 0, 0, 0);
+        const todayISO = today.toISOString().split("T")[0];
 
-        if (new Date(startDate) <= today || new Date(endDate) <= today) {
-            return res.status(404).json({ error: "Leave dates must be in the future" });
+        if (startDate <= todayISO || endDate <= todayISO) {
+            return res.status(400).json({ error: "Leave dates must be in the future" });
         }
-        if (new Date(endDate) < today || new Date(startDate)) {
-            return res.status(404).json({ error: "End date cannot be before start date" });
+        if (endDate < startDate) {
+            return res.status(400).json({ error: "End date cannot be before start date" });
         }
+
+        const parsedStartDate = new Date(`${startDate}T00:00:00`);
+        const parsedEndDate = new Date(`${endDate}T00:00:00`);
+        if (Number.isNaN(parsedStartDate.getTime()) || Number.isNaN(parsedEndDate.getTime())) {
+            return res.status(400).json({ error: "Invalid date format" });
+        }
+
         const leave = await LeaveApplication.create({
             employeeId: employee._id,
             type,
-            startDate: new Date(startDate),
-            endDate: new Date(endDate),
+            startDate: parsedStartDate,
+            endDate: parsedEndDate,
             reason,
             status: "PENDING",
 
         })
 
-        await inngest.send({
+        res.json({ success: true, data: leave });
+
+        inngest.send({
             name: "leave/pending",
-            data:{leaveApplicationId: leave._id}
-        })
-        
-        return res.json({ success: true, data: leave });
+            data: { leaveApplicationId: leave._id }
+        }).catch((err) => {
+            console.error("Leave event send failed:", err);
+        });
 
     } catch (error) {
         return res.status(500).json({ error: "Failed" });
@@ -91,11 +101,18 @@ export const getLeave = async (req, res) => {
 // PATCH /api/leaves/:id
 export const updateLeaveStatus = async (req, res) => {
     try {
-        const { status } = req.body;
+        const { status, id: bodyId } = req.body;
+        const leaveId = req.params.id || bodyId;
+        if (!leaveId) {
+            return res.status(400).json({ error: "Missing leave id" });
+        }
         if (!["PENDING", "APPROVED", "REJECTED"].includes(status)) {
             return res.status(400).json({ error: "Invalid Status" });
         }
-        const leave = await LeaveApplication.findByIdAndUpdate(req.params.id, { status }, { returnDocument: "after" })
+        const leave = await LeaveApplication.findByIdAndUpdate(leaveId, { status }, { returnDocument: "after" })
+        if (!leave) {
+            return res.status(404).json({ error: "Leave not found" });
+        }
         return res.json({ success: true, data: leave })
     } catch (error) {
         return res.status(500).json({ error: "Failed" });
