@@ -812,6 +812,8 @@ npm run dev
 
 <img src="https://raw.githubusercontent.com/Tusharkumar200/Employee-Management-System/developer/assets/screenshots/login_page.PNG" alt="Login Page" width="100%"/>
 
+<img width="100%" src="./assets/screenshots/login_page.PNG"/>
+
 *Secure authentication interface for both admins and employees*
 
 ---
