@@ -20,20 +20,23 @@ const PORT = process.env.PORT || 4000;
 
 
 // Middleware
-app.use(
-  cors({
+const corsOptions = {
     origin: "https://ems-frontend-eight-zeta.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+    optionsSuccessStatus: 200,
+    preflightContinue: false,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.use(express.json())
 app.use(multer().none())
 
 // Routes
-app.get("/", (req,res)=>{
+app.get("/", (req, res) => {
     res.send("Server is running")
 })
 app.use("/api/auth", authRouter)
@@ -47,6 +50,6 @@ app.use("/api/dashboard", dashboardRouter)
 app.use("/api/inngest", serve({ client: inngest, functions }));
 
 await connectDB()
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
