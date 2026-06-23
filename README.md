@@ -810,8 +810,6 @@ npm run dev
 
 ### 🔐 Login Page
 
-<img src="https://raw.githubusercontent.com/Tusharkumar200/Employee-Management-System/developer/assets/screenshots/login_page.PNG" alt="Login Page" width="100%"/>
-
 <img width="100%" src="./assets/screenshots/login_page.PNG"/>
 
 *Secure authentication interface for both admins and employees*
@@ -820,7 +818,7 @@ npm run dev
 
 ### 📊 Admin Dashboard
 
-<img src="https://raw.githubusercontent.com/Tusharkumar200/Employee-Management-System/developer/assets/screenshots/admin-dashboard.png" alt="Admin Dashboard" width="100%"/>
+<img width="100%" src="./assets/screenshots/admin-dashboard.png"/>
 
 *Comprehensive dashboard with analytics, charts, and quick access to all features*
 
@@ -828,7 +826,7 @@ npm run dev
 
 ### 👤 Employee Dashboard
 
-<img src="https://raw.githubusercontent.com/Tusharkumar200/Employee-Management-System/developer/assets/screenshots/employee-dashboard.png" alt="Employee Dashboard" width="100%"/>
+<img width="100%" src="./assets/screenshots/employee-dashboard.png"/>
 
 *Personal dashboard showing key information and upcoming tasks*
 
@@ -836,15 +834,14 @@ npm run dev
 
 ### 👥 Employee List
 
-<img src="https://raw.githubusercontent.com/Tusharkumar200/Employee-Management-System/developer/assets/screenshots/employee-list.png" alt="Employee List" width="100%"/>
+<img width="100%" src="./assets/screenshots/employee-list.png"/>
 
 *Searchable and filterable list of all employees with quick actions*
 
 ---
 
 ### 📅 Attendance Management
-
-<img src="https://raw.githubusercontent.com/Tusharkumar200/Employee-Management-System/developer/assets/screenshots/attendance-page.png" alt="Attendance Page" width="100%"/>
+<img width="100%" src="./assets/screenshots/attendance-page.png"/>
 
 *Track and manage employee attendance with calendar view*
 
@@ -866,7 +863,7 @@ npm run dev
   Your browser does not support the video tag.
 </video>
 ```
-
+*comming soon...*
 *Watch a complete walkthrough of all features (Duration: ~10 minutes)*
 
 ### 📱 Quick Feature Overview
@@ -1018,9 +1015,9 @@ copies or substantial portions of the Software.
 | 🔗 Platform | 📍 Link |
 |---|---|
 | 🐙 **GitHub** | [github.com/Tusharkumar200](https://github.com/Tusharkumar200) |
-| 💼 **LinkedIn** | [Connect on LinkedIn](#) |
-| 🌐 **Portfolio** | [View Portfolio](#) |
-| 📧 **Email** | [Contact](#) |
+| 💼 **LinkedIn** | [Connect on LinkedIn](https://www.linkedin.com/in/tusharkumar2003/) |
+| 🌐 **Live** | [View Portfolio](https://ems-frontend-eight-zeta.vercel.app/login) |
+
 
 ---
 
