@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import api from '../../api/axios'
-import { dummyLeaveData } from "../assets/assets"
 import Loading from '../components/Loading'
 import { PalmtreeIcon, PlusIcon, ThermometerIcon, UmbrellaIcon } from 'lucide-react'
 import LeaveHistory from '../components/leave/LeaveHistory'
@@ -37,10 +36,13 @@ const Leave = () => {
 
   useEffect(() => {
     let isMounted = true;
-    fetchLeaves(isMounted);
+    const timer = window.setTimeout(() => {
+      void fetchLeaves(isMounted);
+    }, 0)
 
     return () => {
       isMounted = false;
+      window.clearTimeout(timer)
     };
   }, [fetchLeaves])
 

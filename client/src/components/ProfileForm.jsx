@@ -1,5 +1,5 @@
 import { Loader2, Save, User } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { toast } from "react-hot-toast"
 import api from '../../api/axios'
 
@@ -21,7 +21,7 @@ const ProfileForm = ({ initialData, onSuccess }) => {
         } catch (err) {
             toast.error(err.response?.data?.error || err.message);
         }
-        finally{
+        finally {
             setLoading(false)
         }
     }

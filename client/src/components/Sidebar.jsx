@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Calendar1Icon, ChevronRightIcon, DollarSignIcon, FileTextIcon, LayoutGridIcon, Loader2, LogOutIcon, MenuIcon, SettingsIcon, UserIcon, XIcon } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
@@ -9,15 +9,25 @@ const Sidebar = () => {
     const [userName, setUserName] = useState('')
     const [mobileOpen, setMobileOpen] = useState(false)
 
-    const {user, loading, logout} = useAuth()
+    const { user, loading, logout } = useAuth()
     useEffect(() => {
-       api.get("/profile").then(({data})=>{
-        if(data.firstName) setUserName(`${data.firstName} ${data.lastName || ""}`.trim());
-       })
+        const timer = window.setTimeout(() => {
+            void api.get("/profile").then(({ data }) => {
+                if (data.firstName) setUserName(`${data.firstName} ${data.lastName || ""}`.trim());
+            })
+        }, 0)
+
+        return () => window.clearTimeout(timer)
     }, [])
 
     // close mobile sidebar on route change
-    useEffect(() => { setMobileOpen(false) }, [pathname])
+    useEffect(() => {
+        const timer = window.setTimeout(() => {
+            setMobileOpen(false)
+        }, 0)
+
+        return () => window.clearTimeout(timer)
+    }, [pathname])
 
     const role = user?.role;
 
@@ -75,10 +85,10 @@ const Sidebar = () => {
             {/* Navigation List */}
             <div className='flex-1 px-3 space-y-0.5 overflow-y-auto'>
                 {loading ? (
-                    <div className='px-3 py-3 flex items-center gap-2 text-slate-500'> 
+                    <div className='px-3 py-3 flex items-center gap-2 text-slate-500'>
                         <Loader2 className='animate-spin w-4 h-4' />
                         <span className='text-sm'>Loading...</span>
-                </div>) : (
+                    </div>) : (
                     navItems.map((item) => {
                         const isActive = pathname.startsWith(item.href)
                         return (
@@ -91,7 +101,7 @@ const Sidebar = () => {
                         )
                     })
                 )}
-               
+
             </div>
             {/* Logout */}
             <div className='p-3 border-t border-white/6'>

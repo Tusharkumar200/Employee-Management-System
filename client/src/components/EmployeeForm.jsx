@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { DEPARTMENTS } from '../assets/assets'
 import { Loader2Icon } from 'lucide-react'
@@ -15,9 +15,9 @@ const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
         e.preventDefault()
         setLoading(true)
         const formData = new FormData(e.currentTarget);
-        if(isEditMode){
+        if (isEditMode) {
             const pwd = formData.get("password")
-            if(!pwd) formData.delete("password")
+            if (!pwd) formData.delete("password")
         }
         try {
             const url = isEditMode ? `/employees/${initialData.id}` : "/employees";
@@ -26,7 +26,7 @@ const EmployeeForm = ({ initialData, onSuccess, onCancel }) => {
             onSuccess ? onSuccess() : navigate("/employees")
         } catch (error) {
             toast.error(error.response?.data?.error || error.message);
-        }finally{
+        } finally {
             setLoading(false);
         }
     }

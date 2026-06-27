@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { dummyAdminDashboardData, dummyEmployeeDashboardData } from '../assets/assets'
+import { useEffect, useState } from 'react'
 import Loading from '../components/Loading'
 import EmployeeDashboard from '../components/EmployeeDashboard'
 import AdminDashboard from '../components/AdminDashboard'
@@ -13,19 +12,22 @@ const Dashboard = () => {
   useEffect(() => {
     let isMounted = true;
 
-    api.get('/dashboard')
-      .then((res) => {
-        if (isMounted) setData(res.data)
-      })
-      .catch((err) => {
-        if (isMounted) toast.error(err.response?.data?.error || err?.message)
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false)
-      })
+    const timer = window.setTimeout(() => {
+      void api.get('/dashboard')
+        .then((res) => {
+          if (isMounted) setData(res.data)
+        })
+        .catch((err) => {
+          if (isMounted) toast.error(err.response?.data?.error || err?.message)
+        })
+        .finally(() => {
+          if (isMounted) setLoading(false)
+        })
+    }, 0)
 
     return () => {
       isMounted = false;
+      window.clearTimeout(timer)
     };
   }, [])
 
@@ -35,12 +37,8 @@ const Dashboard = () => {
   if (data.role === "ADMIN") {
     return <AdminDashboard data={data} />
   }
-  else {
-    return <EmployeeDashboard data={data} />
-  }
-  return (
-    <div>Dashboard</div>
-  )
+
+  return <EmployeeDashboard data={data} />
 }
 
 export default Dashboard

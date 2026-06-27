@@ -4,7 +4,6 @@ import { useContext } from "react";
 import { createContext } from "react";
 import api from "../api/axios";
 
-
 const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
@@ -23,8 +22,7 @@ export function AuthProvider({ children }) {
         try {
             const { data } = await api.get("/auth/session")
             setUser(data.user)
-        } catch (error) {
-            // Token is invalid, clear it
+        } catch {
             localStorage.removeItem("token")
             setUser(null)
             setToken(null)
@@ -34,7 +32,13 @@ export function AuthProvider({ children }) {
         }
     }
 
-    useEffect(() => { refreshSession() }, [])
+    useEffect(() => {
+        const timer = window.setTimeout(() => {
+            void refreshSession()
+        }, 0)
+
+        return () => window.clearTimeout(timer)
+    }, [])
 
     const login = async (email, password, role_type) => {
         const { data } = await api.post("/auth/login", { email, password, role_type })
@@ -56,6 +60,7 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
     const ctx = useContext(AuthContext);
     if (!ctx) throw new Error("useAuth must be used within AuthProvider");

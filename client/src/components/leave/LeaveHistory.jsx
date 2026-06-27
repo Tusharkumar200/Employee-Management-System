@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { Check, Loader2, X } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { getDayTypeDisplay } from '../../assets/assets'
 import { toast } from "react-hot-toast"
 import api from '../../../api/axios'
@@ -41,7 +41,7 @@ const LeaveHistory = ({ leaves, isAdmin, onUpdate }) => {
                                 <td colSpan={isAdmin ? 6 : 4} className='text-center py-12'>No Leave Application Found</td>
                             </tr>
                         ) : (leaves.map((leave) => {
-                            const dayType = getDayTypeDisplay(leave)
+                            void getDayTypeDisplay(leave)
                             return (
                                 <tr key={leave._id || leave.id}>
                                     {isAdmin && (

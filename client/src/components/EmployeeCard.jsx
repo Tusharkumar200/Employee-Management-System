@@ -11,7 +11,7 @@ const EmployeeCard = ({ employee, onDelete, onEdit }) => {
             await api.delete(`/employees/${employee.id}`)
             onDelete()
         } catch (error) {
-            toast.error(err.response?.data?.error || err.message);
+            toast.error(error.response?.data?.error || error.message);
         }
     }
     return (
