@@ -57,7 +57,6 @@ The system provides **role-based access control** with dedicated dashboards for 
 
 | 🔗 Resource | 📍 Link |
 |---|---|
-| 🌍 **Live Website** | [Deploy Link](#) |
 | 🐙 **GitHub Repository** | [View Repo](https://github.com/Tusharkumar200/Employee-Management-System) |
 | 📖 **API Documentation** | [API Docs](#-rest-api-documentation) |
 
@@ -353,6 +352,9 @@ Employee-Management-System/
 │   ├── server.js                      # Entry point
 │   ├── .env.example
 │   └── package.json
+│
+├── 📁 assets/                          # Screenshots and media
+│   └── 📁 screenshots/                # Application screenshots
 │
 ├── .gitignore
 ├── README.md
@@ -808,68 +810,42 @@ npm run dev
 
 ### 🔐 Login Page
 
-```html
-<img width="100%" alt="login_page" src="https://github.com/user-attachments/assets/3a8e366f-5452-4987-8fff-83632094206a" />
-
-```
+<img width="100%" src="./assets/screenshots/login_page.PNG"/>
 
 *Secure authentication interface for both admins and employees*
 
+---
+
 ### 📊 Admin Dashboard
 
-```html
-<img src="./assets/screenshots/admin-dashboard.png" alt="Admin Dashboard" width="100%"/>
-```
+<img width="100%" src="./assets/screenshots/admin-dashboard.png"/>
 
 *Comprehensive dashboard with analytics, charts, and quick access to all features*
 
+---
+
 ### 👤 Employee Dashboard
 
-```html
-<img src="./assets/screenshots/employee-dashboard.png" alt="Employee Dashboard" width="100%"/>
-```
+<img width="100%" src="./assets/screenshots/employee-dashboard.png"/>
 
 *Personal dashboard showing key information and upcoming tasks*
 
+---
+
 ### 👥 Employee List
 
-```html
-<img src="./assets/screenshots/employee-list.png" alt="Employee List" width="100%"/>
-```
+<img width="100%" src="./assets/screenshots/employee-list.png"/>
 
 *Searchable and filterable list of all employees with quick actions*
 
-### 📅 Attendance Management
+---
 
-```html
-<img src="./assets/screenshots/attendance-page.png" alt="Attendance Page" width="100%"/>
-```
+### 📅 Attendance Management
+<img width="100%" src="./assets/screenshots/attendance-page.png"/>
 
 *Track and manage employee attendance with calendar view*
 
-### 💰 Salary Management
-
-```html
-<img src="./assets/screenshots/salary-page.png" alt="Salary Page" width="100%"/>
-```
-
-*Manage payroll and salary information for all employees*
-
-### 🏢 Department Management
-
-```html
-<img src="./assets/screenshots/department-page.png" alt="Department Page" width="100%"/>
-```
-
-*Organize and manage company departments*
-
-### 🗓️ Leave Management
-
-```html
-<img src="./assets/screenshots/leave-page.png" alt="Leave Management" width="100%"/>
-```
-
-*Process leave requests with approval workflow*
+---
 
 </div>
 
@@ -887,14 +863,8 @@ npm run dev
   Your browser does not support the video tag.
 </video>
 ```
-
+*comming soon...*
 *Watch a complete walkthrough of all features (Duration: ~10 minutes)*
-
-### 🎥 YouTube Demo
-
-<a href="https://youtube.com" target="_blank">
-  <img src="https://img.shields.io/badge/YouTube-Demo%20Video-red?style=for-the-badge&logo=youtube" alt="YouTube Demo"/>
-</a>
 
 ### 📱 Quick Feature Overview
 
@@ -1045,9 +1015,9 @@ copies or substantial portions of the Software.
 | 🔗 Platform | 📍 Link |
 |---|---|
 | 🐙 **GitHub** | [github.com/Tusharkumar200](https://github.com/Tusharkumar200) |
-| 💼 **LinkedIn** | [Add Your LinkedIn](#) |
-| 🌐 **Portfolio** | [Add Your Portfolio](#) |
-| 📧 **Email** | [Add Your Email](#) |
+| 💼 **LinkedIn** | [Connect on LinkedIn](https://www.linkedin.com/in/tusharkumar2003/) |
+| 🌐 **Live** | [View Portfolio](https://ems-frontend-eight-zeta.vercel.app/login) |
+
 
 ---
 

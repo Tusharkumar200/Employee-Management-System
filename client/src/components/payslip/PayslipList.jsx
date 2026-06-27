@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { Download } from 'lucide-react'
-import React from 'react'
+
 import { Link } from 'react-router-dom'
 
 const PayslipList = ({ payslips, isAdmin }) => {

@@ -11,26 +11,47 @@ const Payslips = () => {
   const [payslips, setPayslips] = useState([])
   const [employees, setEmployees] = useState([])
   const [loading, setLoading] = useState(true);
-  const {user} = useAuth()
+  const { user } = useAuth()
   const isAdmin = user?.role === "ADMIN";
 
-  const fetchPayslips = useCallback(async () => {
+  const fetchPayslips = useCallback(async (isMounted = true) => {
     try {
       const res = await api.get('/payslips')
-      setPayslips(res.data.data || [])
+      if (isMounted) setPayslips(res.data.data || [])
     } catch (err) {
-      toast.error(err.response?.data?.error || err.message);
-    }finally {
-      setLoading(false);
+      if (isMounted) {
+        toast.error(err.response?.data?.error || err.message);
+      }
+    } finally {
+      if (isMounted) {
+        setLoading(false);
+      }
     }
   }, [])
 
   useEffect(() => {
-    fetchPayslips()
+    let isMounted = true;
+    fetchPayslips(isMounted);
+
+    return () => {
+      isMounted = false;
+    };
   }, [fetchPayslips])
 
   useEffect(() => {
-    if (isAdmin) api.get("/employees").then((res)=> setEmployees(res.data.filter((e)=> !e.isDeleted))).catch(()=>{})
+    let isMounted = true;
+
+    if (isAdmin) {
+      api.get("/employees")
+        .then((res) => {
+          if (isMounted) setEmployees(res.data.filter((e) => !e.isDeleted))
+        })
+        .catch(() => { })
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, [isAdmin])
 
   if (loading) return <Loading />
@@ -41,9 +62,9 @@ const Payslips = () => {
           <h1 className='page-title'>Payslips</h1>
           <p className='page-subtitle'>{isAdmin ? "Generate and manage employee payslips" : "Your payslip history"}</p>
         </div>
-        {isAdmin && <GeneratePayslipForm  employees ={employees} onSuccess= {fetchPayslips} />}
+        {isAdmin && <GeneratePayslipForm employees={employees} onSuccess={fetchPayslips} />}
       </div>
-      <PayslipList payslips={payslips} isAdmin={isAdmin}/>
+      <PayslipList payslips={payslips} isAdmin={isAdmin} />
     </div>
   )
 }

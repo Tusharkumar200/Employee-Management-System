@@ -14,21 +14,30 @@ const Settings = () => {
   const [loading, setLoading] = useState(true)
   const [showPasswordModal, setShowPasswordModal] = useState(false)
 
-  const fetchProfile = async () => {
+  const fetchProfile = async (isMounted = true) => {
 
     try {
       const res = await api.get("/profile")
       const profile = res.data;
-      if (profile) setProfile(profile)
+      if (profile && isMounted) setProfile(profile)
     } catch (err) {
-      toast.error(err.response?.data?.error || err.message);
-    }finally{
-      setLoading(false)
+      if (isMounted) {
+        toast.error(err.response?.data?.error || err.message);
+      }
+    } finally {
+      if (isMounted) {
+        setLoading(false)
+      }
     }
   }
 
   useEffect(() => {
-    fetchProfile()
+    let isMounted = true;
+    fetchProfile(isMounted);
+
+    return () => {
+      isMounted = false;
+    };
   }, [user])
 
   if (loading) return <Loading />

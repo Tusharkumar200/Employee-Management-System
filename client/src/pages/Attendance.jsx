@@ -12,23 +12,34 @@ const Attendance = () => {
   const [loading, setLoading] = useState(true)
   const [isDeleted, setIsDeleted] = useState(false)
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (isMounted = true) => {
     try {
       const res = await api.get("/attendance");
       const json = res.data;
-      setHistory(json.data || [])
-      if (json.employee?.isDeleted) setIsDeleted(true)
+      if (isMounted) {
+        setHistory(json.data || [])
+        if (json.employee?.isDeleted) setIsDeleted(true)
+      }
     } catch (err) {
+      if (isMounted) {
         toast.error(err.response?.data?.error || err.message);
+      }
     } finally {
-      setLoading(false)
+      if (isMounted) {
+        setLoading(false)
+      }
     }
 
   }, [])
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    let isMounted = true;
+    fetchData(isMounted);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchData])
 
   if (loading) return <Loading />
 
