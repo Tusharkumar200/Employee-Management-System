@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { dummyEmployeeData, dummyPayslipData } from "../assets/assets"
+import { useCallback, useEffect, useState } from 'react'
 import Loading from '../components/Loading'
 import PayslipList from '../components/payslip/PayslipList'
 import GeneratePayslipForm from '../components/payslip/GeneratePayslipForm'
@@ -31,10 +30,13 @@ const Payslips = () => {
 
   useEffect(() => {
     let isMounted = true;
-    fetchPayslips(isMounted);
+    const timer = window.setTimeout(() => {
+      void fetchPayslips(isMounted);
+    }, 0)
 
     return () => {
       isMounted = false;
+      window.clearTimeout(timer)
     };
   }, [fetchPayslips])
 

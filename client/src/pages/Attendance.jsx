@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react"
-import { dummyAttendanceData } from "../assets/assets"
 import Loading from '../components/Loading'
 import CheckInButton from "../components/attendance/CheckInButton"
 import AttendanceStats from "../components/attendance/AttendanceStats"
@@ -34,10 +33,13 @@ const Attendance = () => {
 
   useEffect(() => {
     let isMounted = true;
-    fetchData(isMounted);
+    const timer = window.setTimeout(() => {
+      void fetchData(isMounted);
+    }, 0)
 
     return () => {
       isMounted = false;
+      window.clearTimeout(timer)
     };
   }, [fetchData])
 

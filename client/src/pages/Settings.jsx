@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { dummyProfileData } from "../assets/assets"
 import Loading from "../components/Loading"
 import { Lock } from 'lucide-react'
 import ProfileForm from "../components/ProfileForm"
@@ -33,10 +32,13 @@ const Settings = () => {
 
   useEffect(() => {
     let isMounted = true;
-    fetchProfile(isMounted);
+    const timer = window.setTimeout(() => {
+      void fetchProfile(isMounted);
+    }, 0)
 
     return () => {
       isMounted = false;
+      window.clearTimeout(timer)
     };
   }, [user])
 

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import api from "../../api/axios"
-import { dummyEmployeeData, DEPARTMENTS } from "../assets/assets"
+import { DEPARTMENTS } from "../assets/assets"
 import { Plus, Search, X } from "lucide-react"
 import EmployeeCard from "../components/EmployeeCard"
 import EmployeeForm from "../components/EmployeeForm"
@@ -18,7 +18,7 @@ const Employees = () => {
       const url = selectedDept ? `/employees?department=${selectedDept}` : "/employees";
       const res = await api.get(url)
       if (isMounted) setEmployees(res.data)
-    } catch (error) {
+    } catch {
       console.error("Failed to fetch employees");
 
     } finally {
@@ -28,10 +28,13 @@ const Employees = () => {
 
   useEffect(() => {
     let isMounted = true;
-    fetchEmployees(isMounted);
+    const timer = window.setTimeout(() => {
+      void fetchEmployees(isMounted);
+    }, 0)
 
     return () => {
       isMounted = false;
+      window.clearTimeout(timer)
     };
   }, [fetchEmployees])
 

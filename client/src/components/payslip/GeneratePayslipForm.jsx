@@ -1,5 +1,5 @@
 import { Loader2, Plus, X } from 'lucide-react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { toast } from "react-hot-toast"
 import api from '../../../api/axios'
 
