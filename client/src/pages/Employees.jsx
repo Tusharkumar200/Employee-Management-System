@@ -13,19 +13,26 @@ const Employees = () => {
   const [editEmployee, setEditEmployees] = useState(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
 
-  const fetchEmployees = useCallback(async () => {
+  const fetchEmployees = useCallback(async (isMounted = true) => {
     try {
       const url = selectedDept ? `/employees?department=${selectedDept}` : "/employees";
       const res = await api.get(url)
-      setEmployees(res.data)
+      if (isMounted) setEmployees(res.data)
     } catch (error) {
       console.error("Failed to fetch employees");
 
-    } finally { setLoading(false) }
+    } finally {
+      if (isMounted) setLoading(false)
+    }
   }, [selectedDept])
 
   useEffect(() => {
-    fetchEmployees();
+    let isMounted = true;
+    fetchEmployees(isMounted);
+
+    return () => {
+      isMounted = false;
+    };
   }, [fetchEmployees])
 
   const filtered = employees.filter((emp) => `${emp.firstName} ${emp.lastName} ${emp.position}`.toLowerCase().includes(search.toLowerCase()))

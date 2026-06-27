@@ -9,29 +9,39 @@ import ApplyLeaveModal from '../components/leave/ApplyLeaveModal'
 import { useAuth } from '../../context/AuthContext'
 
 const Leave = () => {
-  const {user} = useAuth()
+  const { user } = useAuth()
   const [leaves, setLeaves] = useState([])
   const [loading, setLoading] = useState(true)
   const [showModal, setShowModal] = useState(false)
   const [isDeleted, setIsDeleted] = useState(false)
   const isAdmin = user?.role === "ADMIN";
 
-  const fetchLeaves = useCallback(async () => {
+  const fetchLeaves = useCallback(async (isMounted = true) => {
     try {
       const res = await api.get('/leave');
-      setLeaves(res.data.data || [])
-      if(res.data.employee?.isDeleted) setIsDeleted(true)
-      
+      if (isMounted) {
+        setLeaves(res.data.data || [])
+        if (res.data.employee?.isDeleted) setIsDeleted(true)
+      }
     } catch (err) {
-      toast.error(err.response?.data?.error || err.message);
+      if (isMounted) {
+        toast.error(err.response?.data?.error || err.message);
+      }
     }
-    finally{
-      setLoading(false)
+    finally {
+      if (isMounted) {
+        setLoading(false)
+      }
     }
   }, [])
 
   useEffect(() => {
-    fetchLeaves()
+    let isMounted = true;
+    fetchLeaves(isMounted);
+
+    return () => {
+      isMounted = false;
+    };
   }, [fetchLeaves])
 
   if (loading) return <Loading />
@@ -80,7 +90,7 @@ const Leave = () => {
 
       }
       <LeaveHistory leaves={leaves} isAdmin={isAdmin} onUpdate={fetchLeaves} />
-      <ApplyLeaveModal open={showModal} onClose={()=> setShowModal(false)} onSuccess={fetchLeaves} />
+      <ApplyLeaveModal open={showModal} onClose={() => setShowModal(false)} onSuccess={fetchLeaves} />
     </div>
   )
 }

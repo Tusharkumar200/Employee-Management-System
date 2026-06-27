@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { ArrowRightIcon, CalendarIcon, DollarSignIcon, FileTextIcon } from 'lucide-react'
 import { Link } from 'react-router-dom';
 const EmployeeDashboard = ({ data }) => {
